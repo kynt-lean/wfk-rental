@@ -1,0 +1,41 @@
+<abp-card>
+  <abp-card-header>
+    <div class="row">
+      <div class="col12 col-lg-8 col-sm-7">
+        <h5 class="card-title">{{ localizationResource + '::' + title | abpLocalization }}</h5>
+      </div>
+      <div class="text-end col12 col-lg-4 col-sm-5">
+        <abp-page-toolbar [record]="data.items"></abp-page-toolbar>
+      </div>
+    </div>
+  </abp-card-header>
+  <abp-card-body [abpLoading]="(list.isLoading$ | async) || false">
+    <abp-extensible-table
+      [data]="data.items || []"
+      [list]="list"
+      [recordsTotal]="data.totalCount || 0"
+      [actionsColumnWidth]="120"
+    ></abp-extensible-table>
+  </abp-card-body>
+</abp-card>
+
+<abp-modal [(visible)]="isModalVisible" [busy]="isModalBusy">
+  <ng-template #abpHeader>
+    <h5 class="modal-title" id="modal-basic-title">
+      {{ localizationResource + '::' + title | abpLocalization }}
+    </h5>
+  </ng-template>
+  <ng-template #abpBody>
+    <form [formGroup]="form" (keyup.enter)="save($any(form.value))" [validateOnSubmit]="true">
+      <abp-extensible-form [selectedRecord]="selected"></abp-extensible-form>
+    </form>
+  </ng-template>
+  <ng-template #abpFooter>
+    <button type="button" class="btn btn-secondary" abpClose>
+      {{ localizationResource + '::Cancel' | abpLocalization }}
+    </button>
+    <abp-button iconClass="fa fa-check" (click)="save($any(form.value))" [disabled]="form.invalid">
+      {{ localizationResource + '::Save' | abpLocalization }}
+    </abp-button>
+  </ng-template>
+</abp-modal>
