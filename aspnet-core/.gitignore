@@ -258,6 +258,3 @@ WKF.Rental/Logs/*
 *.db
 *.db-shm
 *.db-wal
-
-# Use abp install-libs to restore.
-**/wwwroot/libs/*
